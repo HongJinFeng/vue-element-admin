@@ -1,13 +1,16 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
+import md5 from 'js-md5'
 
-const state = {
+export const state = {
   token: getToken(),
   name: '',
   avatar: '',
   introduction: '',
-  roles: []
+  roles: [],
+  uid: '',
+  nickname: ''
 }
 
 const mutations = {
@@ -25,6 +28,12 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_UID: (state, uid) => {
+    state.uid = uid
+  },
+  SET_NICKNAME: (state, nickname) => {
+    state.nickname = nickname
   }
 }
 
@@ -32,11 +41,13 @@ const actions = {
   // user login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
+    const md5Password = md5(password)
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+      login({ username: username.trim(), password: md5Password }).then(response => {
+        commit('SET_TOKEN', response.token)
+        commit('SET_UID', response.userInfoDto.uid)
+        commit('SET_NICKNAME', response.userInfoDto.nickname)
+        setToken(response.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -47,25 +58,24 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo(state.uid).then(response => {
         const { data } = response
-
-        if (!data) {
-          reject('Verification failed, please Login again.')
+        if (data === null) {
+          reject('鉴权失败，请重新登陆')
         }
-
-        const { roles, name, avatar, introduction } = data
-
+        const { uid, roles, username, avatar, introduction, nickname } = response
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
-          reject('getInfo: roles must be a non-null array!')
-        }
+        // if (!roles || roles.length <= 0) {
+        //  reject('getInfo: roles must be a non-null array!')
+        // }
 
         commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
+        commit('SET_NAME', username)
         commit('SET_AVATAR', avatar)
+        commit('SET_UID', uid)
         commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        commit('SET_NICKNAME', nickname)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })

@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-editor-container">
-    <github-corner class="github-corner" />
+    <!--    <github-corner class="github-corner" />-->
 
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
 
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import GithubCorner from '@/components/GithubCorner'
+// import GithubCorner from '@/components/GithubCorner'
 import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
 import RaddarChart from './components/RaddarChart'
@@ -50,22 +50,24 @@ import BarChart from './components/BarChart'
 import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
+import { getWeather } from '@/api/weather'
+import { getLast30DDeposit } from '@/api/financial'
 
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
+export const lineChartData = {
+  weather: {
+    xData: [],
+    actualData: []
   },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
+  message: {
+    xData: [180, 160, 151, 106, 145, 150, 130],
     actualData: [180, 160, 151, 106, 145, 150, 130]
   },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
+  deposit: {
+    xData: [],
+    actualData: []
   },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
+  shopping: {
+    xData: [130, 140, 141, 142, 145, 150, 160],
     actualData: [120, 82, 91, 154, 162, 140, 130]
   }
 }
@@ -73,7 +75,7 @@ const lineChartData = {
 export default {
   name: 'DashboardAdmin',
   components: {
-    GithubCorner,
+    // GithubCorner,
     PanelGroup,
     LineChart,
     RaddarChart,
@@ -85,12 +87,35 @@ export default {
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.weather
     }
   },
+  created() {
+    this.queryWeather()
+    this.queryLast30DayDeposit()
+  },
+
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    queryWeather() {
+      getWeather().then((response) => {
+        lineChartData['weather'] = {
+          xData: response.map(item => item.date),
+          actualData: response.map(item => item.temperature)
+        }
+      }
+      )
+    },
+    queryLast30DayDeposit() {
+      getLast30DDeposit().then((response) => {
+        lineChartData['deposit'] = {
+          xData: response.map(item => item.date),
+          actualData: response.map(item => item.deposit)
+        }
+      }
+      )
     }
   }
 }
@@ -116,7 +141,7 @@ export default {
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .chart-wrapper {
     padding: 8px;
   }

@@ -11,6 +11,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import personalCenterRouter from './modules/personalCenter'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -86,6 +87,7 @@ export const constantRoutes = [
   {
     path: '/documentation',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -99,6 +101,7 @@ export const constantRoutes = [
     path: '/guide',
     component: Layout,
     redirect: '/guide/index',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -133,7 +136,8 @@ export const asyncRoutes = [
     path: '/permission',
     component: Layout,
     redirect: '/permission/page',
-    alwaysShow: true, // will always show the root menu
+    hidden: true,
+    // alwaysShow: true, // will always show the root menu
     name: 'Permission',
     meta: {
       title: 'permission',
@@ -174,6 +178,7 @@ export const asyncRoutes = [
   {
     path: '/icon',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -185,6 +190,7 @@ export const asyncRoutes = [
   },
 
   /** when your routing map is too long, you can split it into small modules **/
+  personalCenterRouter,
   componentsRouter,
   chartsRouter,
   nestedRouter,
@@ -195,6 +201,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/example/list',
     name: 'Example',
+    hidden: true,
     meta: {
       title: 'example',
       icon: 'el-icon-s-help'
@@ -225,6 +232,7 @@ export const asyncRoutes = [
   {
     path: '/tab',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -240,6 +248,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: 'noRedirect',
     name: 'ErrorPages',
+    hidden: true,
     meta: {
       title: 'errorPages',
       icon: '404'
@@ -263,6 +272,7 @@ export const asyncRoutes = [
   {
     path: '/error-log',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'log',
@@ -277,6 +287,7 @@ export const asyncRoutes = [
     path: '/excel',
     component: Layout,
     redirect: '/excel/export-excel',
+    hidden: true,
     name: 'Excel',
     meta: {
       title: 'excel',
@@ -316,6 +327,7 @@ export const asyncRoutes = [
     redirect: '/zip/download',
     alwaysShow: true,
     name: 'Zip',
+    hidden: true,
     meta: { title: 'zip', icon: 'zip' },
     children: [
       {
@@ -331,6 +343,7 @@ export const asyncRoutes = [
     path: '/pdf',
     component: Layout,
     redirect: '/pdf/index',
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -349,6 +362,7 @@ export const asyncRoutes = [
   {
     path: '/theme',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -362,6 +376,7 @@ export const asyncRoutes = [
   {
     path: '/clipboard',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -375,6 +390,7 @@ export const asyncRoutes = [
   {
     path: '/i18n',
     component: Layout,
+    hidden: true,
     children: [
       {
         path: 'index',
@@ -390,8 +406,8 @@ export const asyncRoutes = [
     component: Layout,
     children: [
       {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'externalLink', icon: 'link' }
+        path: 'http://47.115.84.234/our-tree/index.html',
+        meta: { title: 'ourTree', icon: 'link' }
       }
     ]
   },

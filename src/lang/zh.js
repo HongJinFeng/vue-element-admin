@@ -15,6 +15,8 @@ export default {
     dndList: '列表拖拽',
     splitPane: 'Splitpane',
     avatarUpload: '头像上传',
+    personalDetail: '个人资料',
+    personalCenter: '个人中心',
     dropzone: 'Dropzone',
     sticky: 'Sticky',
     countTo: 'Count To',
@@ -62,7 +64,8 @@ export default {
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
     externalLink: '外链',
-    profile: '个人中心'
+    profile: '个人中心',
+    ourTree: '我们的大树'
   },
   navbar: {
     dashboard: '首页',
@@ -73,7 +76,7 @@ export default {
     size: '布局大小'
   },
   login: {
-    title: '系统登录',
+    title: '宝宝系统',
     logIn: '登录',
     username: '账号',
     password: '密码',

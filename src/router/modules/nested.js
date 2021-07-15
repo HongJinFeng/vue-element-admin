@@ -5,6 +5,7 @@ import Layout from '@/layout'
 const nestedRouter = {
   path: '/nested',
   component: Layout,
+  hidden: true,
   redirect: '/nested/menu1/menu1-1',
   name: 'Nested',
   meta: {

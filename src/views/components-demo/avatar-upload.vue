@@ -1,14 +1,14 @@
 <template>
   <div class="components-container">
-    <aside>This is based on
+    <!--    <aside>This is based on
       <a class="link-type" href="//github.com/dai-siki/vue-image-crop-upload"> vue-image-crop-upload</a>.
       {{ $t('components.imageUploadTips') }}
-    </aside>
+    </aside>-->
 
     <pan-thumb :image="image" />
 
     <el-button type="primary" icon="el-icon-upload" style="position: absolute;bottom: 15px;margin-left: 40px;" @click="imagecropperShow=true">
-      Change Avatar
+      更换头像
     </el-button>
 
     <image-cropper
@@ -16,8 +16,9 @@
       :key="imagecropperKey"
       :width="300"
       :height="300"
-      url="https://httpbin.org/post"
-      lang-type="en"
+      :url="uploadUrl"
+      :params="user"
+      lang-type="zh"
       @close="close"
       @crop-upload-success="cropSuccess"
     />
@@ -27,6 +28,7 @@
 <script>
 import ImageCropper from '@/components/ImageCropper'
 import PanThumb from '@/components/PanThumb'
+import { state } from '@/store/modules/user'
 
 export default {
   name: 'AvatarUploadDemo',
@@ -35,14 +37,19 @@ export default {
     return {
       imagecropperShow: false,
       imagecropperKey: 0,
-      image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
+      image: state.avatar,
+      uploadUrl: process.env.VUE_APP_BASE_API + '/user/update-avatar',
+      user: {
+        uid: state.uid
+      }
     }
   },
   methods: {
     cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
-      this.image = resData.files.avatar
+      this.image = resData.url
+      state.avatar = resData.url
     },
     close() {
       this.imagecropperShow = false
