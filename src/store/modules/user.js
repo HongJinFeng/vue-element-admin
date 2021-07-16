@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, setUid, removeUid, getUid } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
 
@@ -9,7 +9,7 @@ export const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  uid: '',
+  uid: getUid(),
   nickname: ''
 }
 
@@ -48,6 +48,7 @@ const actions = {
         commit('SET_UID', response.userInfoDto.uid)
         commit('SET_NICKNAME', response.userInfoDto.nickname)
         setToken(response.token)
+        setUid(response.userInfoDto.uid)
         resolve()
       }).catch(error => {
         reject(error)
@@ -88,7 +89,9 @@ const actions = {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
+        commit('SET_UID', '')
         removeToken()
+        removeUid()
         resetRouter()
 
         // reset visited views and cached views
@@ -106,8 +109,10 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
+      commit('SET_UID', '')
       commit('SET_ROLES', [])
       removeToken()
+      removeUid()
       resolve()
     })
   },

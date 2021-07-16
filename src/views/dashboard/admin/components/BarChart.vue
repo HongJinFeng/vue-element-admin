@@ -32,7 +32,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.initChart()
+      // 柱状图
+      // this.initChart()
     })
   },
   beforeDestroy() {

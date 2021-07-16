@@ -10,7 +10,7 @@
         <el-col :span="18" :xs="24">
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="活动" name="activity">
+              <el-tab-pane label="活动信息" name="activity">
                 <activity />
               </el-tab-pane>
               <el-tab-pane label="时间线" name="timeline">
@@ -49,6 +49,7 @@ export default {
       'name',
       'avatar',
       'roles',
+      'uid',
       'nickname'
     ])
   },
@@ -58,9 +59,10 @@ export default {
   methods: {
     getUser() {
       this.user = {
+        uid: this.uid,
         name: this.name,
         role: this.roles.join(' | '),
-        email: 'admin@test.com',
+        email: this.email,
         avatar: this.avatar,
         nickname: this.nickname
       }

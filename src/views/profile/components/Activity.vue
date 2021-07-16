@@ -2,16 +2,12 @@
   <div class="user-activity">
     <div class="post">
       <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/57ed425a-c71e-4201-9428-68760c0537c4.jpg'+avatarPrefix">
-        <span class="username text-muted">Iron Man</span>
-        <span class="description">Shared publicly - 7:30 PM today</span>
+        <img class="img-circle" :src="user.avatar">
+        <span class="username text-muted">{{ user.name }}</span>
+        <span class="description">  --恋爱第一天-- </span>
       </div>
       <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
+        2021-01-23，我们在一起了！！！🎉🎉🎉
       </p>
       <ul class="list-inline">
         <li>
@@ -30,42 +26,77 @@
     </div>
     <div class="post">
       <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/9e2a5d0a-bd5b-457f-ac8e-86554616c87b.jpg'+avatarPrefix">
-        <span class="username text-muted">Captain American</span>
-        <span class="description">Sent you a message - yesterday</span>
-      </div>
-      <p>
-        Lorem ipsum represents a long-held tradition for designers,
-        typographers and the like. Some people hate it and argue for
-        its demise, but others ignore the hate as they create awesome
-        tools to help create filler text for everyone from bacon lovers
-        to Charlie Sheen fans.
-      </p>
-      <ul class="list-inline">
-        <li>
-          <span class="link-black text-sm">
-            <i class="el-icon-share" />
-            Share
-          </span>
-        </li>
-        <li>
-          <span class="link-black text-sm">
-            <svg-icon icon-class="like" />
-            Like
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="post">
-      <div class="user-block">
-        <img class="img-circle" :src="'https://wpimg.wallstcn.com/fb57f689-e1ab-443c-af12-8d4066e202e2.jpg'+avatarPrefix">
-        <span class="username">Spider Man</span>
-        <span class="description">Posted 4 photos - 2 days ago</span>
+        <img class="img-circle" :src="user.avatar">
+        <span class="username">{{ user.name }}</span>
+        <span class="description"> -- 忘记发图片了，补上 --</span>
       </div>
       <div class="user-images">
-        <el-carousel :interval="6000" type="card" height="220px">
-          <el-carousel-item v-for="item in carouselImages" :key="item">
-            <img :src="item+carouselPrefix" class="image">
+        <el-carousel :interval="6000" type="card" height="520px">
+          <el-carousel-item v-for="item in carouselImagesB" :key="item">
+            <img :src="item" class="image">
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <ul class="list-inline">
+        <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
+        <li>
+          <span class="link-black text-sm">
+            <svg-icon icon-class="like" /> Like</span>
+        </li>
+      </ul>
+    </div>
+    <div class="post">
+      <div class="user-block">
+        <img class="img-circle" :src="user.avatar">
+        <span class="username">{{ user.name }}</span>
+        <span class="description"> -- 今天是5月20号，收到了花花，开心 --</span>
+      </div>
+      <div class="user-images">
+        <el-carousel :interval="6000" type="card" height="520px">
+          <el-carousel-item v-for="item in carouselImagesD" :key="item">
+            <img :src="item" class="image">
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <ul class="list-inline">
+        <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
+        <li>
+          <span class="link-black text-sm">
+            <svg-icon icon-class="like" /> Like</span>
+        </li>
+      </ul>
+    </div>
+    <div class="post">
+      <div class="user-block">
+        <img class="img-circle" :src="user.avatar">
+        <span class="username">{{ user.name }}</span>
+        <span class="description"> -- 我们的旅游 --</span>
+      </div>
+      <div class="user-images">
+        <el-carousel :interval="6000" type="card" height="550px">
+          <el-carousel-item v-for="item in carouselImagesA" :key="item">
+            <img :src="item" class="image">
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <ul class="list-inline">
+        <li><span class="link-black text-sm"><i class="el-icon-share" /> Share</span></li>
+        <li>
+          <span class="link-black text-sm">
+            <svg-icon icon-class="like" /> Like</span>
+        </li>
+      </ul>
+    </div>
+    <div class="post">
+      <div class="user-block">
+        <img class="img-circle" :src="user.avatar">
+        <span class="username">{{ user.name }}</span>
+        <span class="description"> -- 考博冲冲冲，第一天 --</span>
+      </div>
+      <div class="user-images">
+        <el-carousel :interval="6000" type="card" height="520px">
+          <el-carousel-item v-for="item in carouselImagesC" :key="item">
+            <img :src="item" class="image">
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -81,20 +112,52 @@
 </template>
 
 <script>
-const avatarPrefix = '?imageView2/1/w/80/h/80'
-const carouselPrefix = '?imageView2/2/h/440'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
-      carouselImages: [
-        'https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg',
-        'https://wpimg.wallstcn.com/bcce3734-0837-4b9f-9261-351ef384f75a.jpg',
-        'https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg',
-        'https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg'
+      user: {},
+      carouselImagesA: [
+        'http://47.115.84.234/picture/2061626356472.jpg',
+        'http://47.115.84.234/picture/2051626356471.jpg',
+        'http://47.115.84.234/picture/2031626356446.jpg',
+        'http://47.115.84.234/picture/2001626356445.jpg',
+        'http://47.115.84.234/picture/1971626356443.jpg',
+        'http://47.115.84.234/picture/1981626356444.jpg'
       ],
-      avatarPrefix,
-      carouselPrefix
+      carouselImagesB: [
+        'http://47.115.84.234/picture/2041626356471.jpg'
+      ],
+      carouselImagesC: [
+        'http://47.115.84.234/picture/681751626321592.jpg',
+        'http://47.115.84.234/picture/681761626321598.jpg'
+      ],
+      carouselImagesD: [
+        'http://47.115.84.234/picture/1951626356441.jpg'
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'name',
+      'avatar',
+      'roles',
+      'nickname'
+    ])
+  },
+  created() {
+    this.getUser()
+  },
+  methods: {
+    getUser() {
+      this.user = {
+        name: this.name,
+        role: this.roles.join(' | '),
+        email: this.email,
+        avatar: this.avatar,
+        nickname: this.nickname
+      }
     }
   }
 }
